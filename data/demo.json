@@ -1,0 +1,420 @@
+{
+  "label": "DÉMONSTRATION SYNTHÉTIQUE — marchés, positions et incidents fictifs",
+  "contracts": {
+    "asOf": "2026-09-21T12:00:00Z",
+    "quantity": 100,
+    "feeBps": 50,
+    "bufferBps": 20,
+    "maxAgeMs": 30000,
+    "maxSkewMs": 5000,
+    "markets": [
+      {
+        "id": "btc-dec",
+        "title": "BTC > 120 000 $ avant fin décembre",
+        "rulesText": "BTC > 120 000 $ avant fin décembre. Index Atlas BTC/USD ; observation continue dès le 1 septembre. Règlement binaire uniquement, sans annulation. Contrat fictif.",
+        "normalized": {
+          "asset": "BTC",
+          "source": "Atlas BTC/USD index (fictif)",
+          "currency": "USD",
+          "settlement": "1 USD par YES vrai ; 1 USD par NO faux",
+          "voidPolicy": "binary-only",
+          "kind": "anytime",
+          "comparator": "gt",
+          "threshold": 120000,
+          "start": "2026-09-01T00:00:00Z",
+          "end": "2026-12-31T23:59:59Z"
+        },
+        "reviewed": true,
+        "reviewEvidence": "Fixture synthétique revue : btc-dec",
+        "quotes": {
+          "yes": {
+            "observedAt": "2026-09-21T11:59:57Z",
+            "asks": [
+              {
+                "price": 0.53,
+                "size": 80
+              },
+              {
+                "price": 0.54,
+                "size": 200
+              }
+            ]
+          },
+          "no": {
+            "observedAt": "2026-09-21T11:59:57Z",
+            "asks": [
+              {
+                "price": 0.49,
+                "size": 80
+              },
+              {
+                "price": 0.5,
+                "size": 200
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "btc-nov",
+        "title": "BTC > 120 000 $ avant fin novembre",
+        "rulesText": "BTC > 120 000 $ avant fin novembre. Index Atlas BTC/USD ; observation continue dès le 1 septembre. Règlement binaire uniquement, sans annulation. Contrat fictif.",
+        "normalized": {
+          "asset": "BTC",
+          "source": "Atlas BTC/USD index (fictif)",
+          "currency": "USD",
+          "settlement": "1 USD par YES vrai ; 1 USD par NO faux",
+          "voidPolicy": "binary-only",
+          "kind": "anytime",
+          "comparator": "gt",
+          "threshold": 120000,
+          "start": "2026-09-01T00:00:00Z",
+          "end": "2026-11-30T23:59:59Z"
+        },
+        "reviewed": true,
+        "reviewEvidence": "Fixture synthétique revue : btc-nov",
+        "quotes": {
+          "yes": {
+            "observedAt": "2026-09-21T11:59:57Z",
+            "asks": [
+              {
+                "price": 0.62,
+                "size": 80
+              },
+              {
+                "price": 0.63,
+                "size": 200
+              }
+            ]
+          },
+          "no": {
+            "observedAt": "2026-09-21T11:59:57Z",
+            "asks": [
+              {
+                "price": 0.4,
+                "size": 80
+              },
+              {
+                "price": 0.41,
+                "size": 200
+              }
+            ]
+          }
+        },
+        "clauseEvidence": {
+          "source": "Index Atlas BTC/USD"
+        }
+      },
+      {
+        "id": "btc-other",
+        "title": "Même seuil, autre source de résolution",
+        "rulesText": "BTC > 120 000 $ avant fin novembre. Autre index BTC/USD (fictif) ; observation continue dès le 1 septembre. Règlement binaire uniquement, sans annulation. Contrat fictif.",
+        "normalized": {
+          "asset": "BTC",
+          "source": "Autre index (fictif)",
+          "currency": "USD",
+          "settlement": "1 USD par YES vrai ; 1 USD par NO faux",
+          "voidPolicy": "binary-only",
+          "kind": "anytime",
+          "comparator": "gt",
+          "threshold": 120000,
+          "start": "2026-09-01T00:00:00Z",
+          "end": "2026-11-30T23:59:59Z"
+        },
+        "reviewed": true,
+        "reviewEvidence": "Fixture synthétique revue : clause de source autre index, btc-other",
+        "quotes": {
+          "yes": {
+            "observedAt": "2026-09-21T11:59:57Z",
+            "asks": [
+              {
+                "price": 0.49,
+                "size": 80
+              },
+              {
+                "price": 0.5,
+                "size": 200
+              }
+            ]
+          },
+          "no": {
+            "observedAt": "2026-09-21T11:59:57Z",
+            "asks": [
+              {
+                "price": 0.52,
+                "size": 80
+              },
+              {
+                "price": 0.53,
+                "size": 200
+              }
+            ]
+          }
+        },
+        "clauseEvidence": {
+          "source": "Autre index BTC/USD (fictif)"
+        }
+      },
+      {
+        "id": "btc-terminal",
+        "title": "BTC > 120 000 $ à la clôture de décembre",
+        "rulesText": "BTC > 120 000 $ à la clôture de décembre. Index Atlas BTC/USD ; observation continue dès le 1 septembre. Règlement binaire uniquement, sans annulation. Contrat fictif.",
+        "normalized": {
+          "asset": "BTC",
+          "source": "Atlas BTC/USD index (fictif)",
+          "currency": "USD",
+          "settlement": "1 USD par YES vrai ; 1 USD par NO faux",
+          "voidPolicy": "binary-only",
+          "kind": "terminal",
+          "comparator": "gt",
+          "threshold": 120000,
+          "start": "2026-09-01T00:00:00Z",
+          "end": "2026-12-31T23:59:59Z"
+        },
+        "reviewed": true,
+        "reviewEvidence": "Fixture synthétique revue : btc-terminal",
+        "quotes": {
+          "yes": {
+            "observedAt": "2026-09-21T11:59:57Z",
+            "asks": [
+              {
+                "price": 0.43,
+                "size": 80
+              },
+              {
+                "price": 0.44,
+                "size": 200
+              }
+            ]
+          },
+          "no": {
+            "observedAt": "2026-09-21T11:59:57Z",
+            "asks": [
+              {
+                "price": 0.59,
+                "size": 80
+              },
+              {
+                "price": 0.6,
+                "size": 200
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "btc-unreviewed",
+        "title": "Contrat à vérifier",
+        "rulesText": "Contrat à vérifier. Index Atlas BTC/USD ; observation continue dès le 1 septembre. Règlement binaire uniquement, sans annulation. Contrat fictif.",
+        "normalized": {
+          "asset": "BTC",
+          "source": "Atlas BTC/USD index (fictif)",
+          "currency": "USD",
+          "settlement": "1 USD par YES vrai ; 1 USD par NO faux",
+          "voidPolicy": "binary-only",
+          "kind": "anytime",
+          "comparator": "gt",
+          "threshold": 120000,
+          "start": "2026-09-01T00:00:00Z",
+          "end": "2026-10-31T23:59:59Z"
+        },
+        "reviewed": false,
+        "reviewEvidence": "",
+        "quotes": {
+          "yes": {
+            "observedAt": "2026-09-21T11:59:57Z",
+            "asks": [
+              {
+                "price": 0.55,
+                "size": 80
+              },
+              {
+                "price": 0.56,
+                "size": 200
+              }
+            ]
+          },
+          "no": {
+            "observedAt": "2026-09-21T11:59:57Z",
+            "asks": [
+              {
+                "price": 0.48,
+                "size": 80
+              },
+              {
+                "price": 0.49,
+                "size": 200
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "exposure": {
+    "asOf": "2026-09-21T12:00:00Z",
+    "nodes": [
+      {
+        "id": "vault",
+        "label": "Vault Horizon (fictif)",
+        "coverageComplete": true
+      },
+      {
+        "id": "staked",
+        "label": "hETH (fictif)",
+        "coverageComplete": true
+      },
+      {
+        "id": "issuer",
+        "label": "Émetteur Helios (fictif)",
+        "coverageComplete": false
+      },
+      {
+        "id": "stable",
+        "label": "USD Atlas (fictif)",
+        "coverageComplete": true
+      },
+      {
+        "id": "bridge",
+        "label": "Bridge Orion (fictif)",
+        "coverageComplete": false
+      },
+      {
+        "id": "cash",
+        "label": "Réserve USD (fictive)",
+        "coverageComplete": true
+      }
+    ],
+    "edges": [
+      {
+        "to": "staked",
+        "kind": "allocation",
+        "fraction": 0.6,
+        "evidence": "Allocation fictive documentée dans la fixture v1",
+        "observedAt": "2026-09-20T08:00:00Z",
+        "from": "vault"
+      },
+      {
+        "to": "stable",
+        "kind": "allocation",
+        "fraction": 0.4,
+        "evidence": "Allocation fictive documentée dans la fixture v1",
+        "observedAt": "2026-09-20T08:00:00Z",
+        "from": "vault"
+      },
+      {
+        "to": "issuer",
+        "kind": "dependency",
+        "fraction": 1,
+        "evidence": "Allocation fictive documentée dans la fixture v1",
+        "observedAt": "2026-09-20T08:00:00Z",
+        "from": "staked"
+      },
+      {
+        "to": "bridge",
+        "kind": "dependency",
+        "fraction": 1,
+        "evidence": "Allocation fictive documentée dans la fixture v1",
+        "observedAt": "2026-09-20T08:00:00Z",
+        "from": "stable"
+      }
+    ],
+    "positions": [
+      {
+        "id": "p1",
+        "node": "vault",
+        "valueUsd": 20000,
+        "observedAt": "2026-09-20T09:00:00Z"
+      },
+      {
+        "id": "p2",
+        "node": "staked",
+        "valueUsd": 5000,
+        "observedAt": "2026-09-20T09:00:00Z"
+      },
+      {
+        "id": "p3",
+        "node": "cash",
+        "valueUsd": 10000,
+        "observedAt": "2026-09-20T09:00:00Z"
+      }
+    ],
+    "incidents": [
+      {
+        "id": "i1",
+        "target": "issuer",
+        "title": "Helios suspend les retraits",
+        "status": "confirmed",
+        "publishedAt": "2026-09-21T10:00:00Z",
+        "observedAt": "2026-09-21T10:02:00Z",
+        "evidence": "Communiqué fictif — scénario pédagogique, aucun incident réel."
+      },
+      {
+        "id": "i2",
+        "target": "bridge",
+        "title": "Rumeur de perturbation sur Orion",
+        "status": "alleged",
+        "publishedAt": "2026-09-21T11:00:00Z",
+        "observedAt": "2026-09-21T11:04:00Z",
+        "evidence": "Communiqué fictif — scénario pédagogique, aucun incident réel."
+      },
+      {
+        "id": "i3",
+        "target": "issuer",
+        "title": "Maintenance planifiée sans interruption",
+        "status": "benign",
+        "publishedAt": "2026-09-20T10:00:00Z",
+        "observedAt": "2026-09-20T10:01:00Z",
+        "evidence": "Communiqué fictif — scénario pédagogique, aucun incident réel."
+      },
+      {
+        "id": "i4",
+        "target": "bridge",
+        "title": "Incident antérieur résolu",
+        "status": "confirmed",
+        "publishedAt": "2026-09-20T10:00:00Z",
+        "observedAt": "2026-09-20T10:01:00Z",
+        "evidence": "Communiqué fictif — scénario pédagogique, aucun incident réel.",
+        "resolvedAt": "2026-09-20T13:00:00Z"
+      }
+    ]
+  },
+  "resolution": {
+    "leftId": "btc-nov",
+    "rightId": "btc-other",
+    "pairReview": {
+      "confirmed": false,
+      "note": ""
+    },
+    "scenario": {
+      "label": "Deux indices divergent sur le seuil BTC",
+      "completeHypothetical": true,
+      "observations": [
+        {
+          "source": "Atlas BTC/USD index (fictif)",
+          "at": "2026-10-01T12:00:00Z",
+          "value": 121000
+        },
+        {
+          "source": "Autre index (fictif)",
+          "at": "2026-10-01T12:00:00Z",
+          "value": 119000
+        }
+      ]
+    },
+    "positions": [
+      {
+        "market": "btc-nov",
+        "side": "YES",
+        "quantity": 100,
+        "entryPrice": 0.62
+      },
+      {
+        "market": "btc-other",
+        "side": "NO",
+        "quantity": 100,
+        "entryPrice": 0.53
+      }
+    ]
+  }
+}
