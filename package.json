@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Contract Graph, Resolution Radar and Exposure Radar \u2014 evidence-first research prototypes",
+  "description": "Contract Graph, Resolution Radar, Contract Memory and Exposure Radar \u2014 evidence-first research prototypes",
   "engines": {
     "node": ">=22"
   },
@@ -11,7 +11,7 @@
     "start": "node src/server.js",
     "test": "node --test test/*.test.js",
     "benchmark": "node src/benchmark.js",
-    "check": "node --check src/server.js && node --check src/resolution.js && node --check public/app.js",
+    "check": "node --check src/server.js && node --check src/resolution.js && node --check src/memory.js && node --check src/jev.js && node --check public/app.js",
     "eval": "node src/evaluate.js"
   }
 }

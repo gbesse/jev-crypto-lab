@@ -1,9 +1,10 @@
 # Jev Crypto Lab
 
-Trois prototypes de recherche en lecture seule, dans une application locale :
+Quatre prototypes de recherche en lecture seule, dans une application locale :
 
 - **Contract Graph** : vérifier des implications entre contrats binaires normalisés, puis simuler l’achat des deux jambes sur des carnets fournis.
 - **Resolution Radar** : comparer les clauses de deux contrats, rejouer une trajectoire hypothétique et calculer le paiement brut de positions saisies.
+- **Contract Memory** : conserver des versions horodatées de marchés Gamma, afficher les différences de règles et les positions actuelles à examiner, puis enregistrer une revue humaine.
 - **Exposure Radar** : retrouver les chemins entre incidents et positions, calculer une borne haute d’exposition, rejouer ce qui était connu à un instant donné.
 
 Les moteurs sont fonctionnels sur des données importées. Le jeu initial est **entièrement fictif**. L’adaptateur Jev a été vérifié par une requête sur les clauses fictives de la démonstration ; il n’a pas été évalué sur un corpus réel annoté. Aucune performance de trading ou supériorité SOTA n’est revendiquée.
@@ -26,9 +27,10 @@ Le projet est indépendant de `jev-proxy` et n’utilise aucune dépendance npm 
 
 1. **Contract Graph** : le scénario présente un candidat fictif, avec un plancher net conditionnel de **5,9462 USD pour 100 unités par jambe**. Ouvrir la preuve pour voir les trois états possibles, les frais supposés et les clauses revues. Passer les frais de 50 à 1 000 bps élimine le candidat.
 2. **Resolution Radar** : deux contrats fictifs ont le même seuil BTC et des sources de résolution différentes. Le scénario place un index à 121 000 USD et l’autre à 119 000 USD ; le moteur calcule YES/NO, puis un résultat brut de **85 USD** pour les deux positions fictives saisies, hors frais. Modifier une mesure et cliquer sur **Analyser** montre immédiatement une autre issue. La revue de la paire est en attente tant qu’une personne n’a pas coché la case et renseigné sa trace.
-3. **Exposure Radar** : un portefeuille fictif de 35 000 USD a une exposition potentiellement concernée de 25 000 USD au maximum : 17 000 USD pour l’incident confirmé dans la fixture et 8 000 USD pour une allégation. Rejouer au `2026-09-21T09:00` UTC donne zéro incident actif connu ; à `10:30`, 17 000 USD.
-4. **Sources & Jev** : consulter les catalogues publics ou soumettre des textes à Jev après configuration. Les données publiques et les jugements ne remplacent jamais silencieusement les fixtures ou les données importées.
-5. **Exporter le dossier** : chaque module télécharge ses entrées, son résultat et la provenance synthétique/importée. Les dossiers Contract Graph et Exposure Radar peuvent être réimportés ; le dossier Resolution Radar peut être rejoué par l’API. Les changements restent en mémoire dans la page ; recharger restaure la démonstration.
+3. **Contract Memory** : cliquer sur **Voir un exemple fictif** pour inspecter un changement de source de résolution et une position fictive. Revenir au suivi local pour saisir un ID Gamma réel ; l’ajout effectue immédiatement la première capture. Les exemples fictifs ne sont jamais archivés comme données réelles.
+4. **Exposure Radar** : un portefeuille fictif de 35 000 USD a une exposition potentiellement concernée de 25 000 USD au maximum : 17 000 USD pour l’incident confirmé dans la fixture et 8 000 USD pour une allégation. Rejouer au `2026-09-21T09:00` UTC donne zéro incident actif connu ; à `10:30`, 17 000 USD.
+5. **Sources & Jev** : consulter les catalogues publics ou soumettre des textes à Jev après configuration. Les données publiques et les jugements ne remplacent jamais silencieusement les fixtures ou les données importées.
+6. **Exporter le dossier** : chaque module télécharge ses entrées, son résultat et la provenance synthétique/importée. Les dossiers Contract Graph et Exposure Radar peuvent être réimportés ; le dossier Resolution Radar peut être rejoué par l’API. Contract Memory exporte toutes les versions et revues de l’archive locale.
 
 ## Brancher Jev
 
@@ -45,6 +47,20 @@ L’adaptateur utilise `POST https://api.typesafe.ai/v1/systemone`, avec `jev-1.
 Jev propose des jugements atomiques (même événement, même source, exceptions compatibles ; cible, statut allégué dans le texte, type d’incident). **Il n’approuve pas la normalisation et ne modifie pas automatiquement le portefeuille.**
 
 Dans Resolution Radar, le bouton **Comparer avec Jev** envoie uniquement les deux textes de clauses affichés et montre ses jugements séparément. La comparaison des champs normalisés, la déclaration de revue, les issues du scénario et les paiements sont calculés localement. Une réponse Jev, même très concentrée, n’active jamais la revue humaine.
+
+Dans Contract Memory, **Demander une lecture Jev** envoie les champs de règle et de résolution des deux versions conservées. Jev classe séparément le déclencheur, la source et les exceptions. Cette lecture ne qualifie ni le marché comme « changé juridiquement », ni la position comme gagnante ou perdante ; la revue humaine reste explicite.
+
+## Contract Memory
+
+Saisir un ID numérique Gamma ou choisir un marché dans l’échantillon découvert, puis laisser le serveur local en marche. Chaque nouvel ID est capturé immédiatement. Les marchés suivis, au maximum 25, sont recapturés toutes les 15 minutes et au démarrage ; **Capturer maintenant** permet une capture manuelle. La liste reste fixe jusqu’à un ajout ou un retrait. Un échec source est signalé, sans version simulée. L’historique d’un marché retiré reste conservé.
+
+Les données sont stockées dans `.memory/` (ignoré par Git) : `watchlist.json` contient la liste et les positions déclarées, `snapshots.jsonl` les versions distinctes, et `reviews.jsonl` le journal append-only des revues. L’export JSON inclut tous les instantanés et toutes les revues ; le conserver pour sauvegarder l’archive. Chaque version garde les champs bruts utiles au règlement (question, description, source, dates, issues et configuration), l’URL source, l’heure de collecte et une empreinte SHA-256. Les modifications du champ `updatedAt` seul ne créent pas une nouvelle version.
+
+Le journal présente les valeurs avant/après et distingue champs de règle/résolution et autres métadonnées. L’heure affichée est celle de **première observation par cet outil**, pas l’heure effective de modification chez Polymarket. Il n’y a aucun historique avant la première capture. Une différence textuelle ne prouve pas à elle seule une modification juridiquement applicable ; la personne qui vérifie peut enregistrer une qualification et une note. Les revues précédentes restent dans l’archive lorsqu’une nouvelle revue est ajoutée.
+
+Une position actuelle déclarée comporte le côté YES/NO, la quantité et le prix d’entrée. Le coût d’entrée associé à un marché modifié est affiché comme montant **potentiellement concerné**. Il ne représente ni une perte, ni la valeur actuelle, ni la position détenue historiquement au moment du changement. Les règles brutes ne suffisent pas à calculer le paiement ; utiliser Resolution Radar avec des clauses normalisées et revues pour un scénario de paiement hypothétique. Aucun ordre n’est transmis.
+
+API locale : `GET /api/memory`, `GET /api/memory/demo` ; `POST /api/memory/add`, `/remove`, `/position`, `/review`, `/capture`, `/judge`. Les corps POST sont en JSON. Le jugement Jev reçoit un identifiant de changement conservé, jamais un texte arbitraire fourni au moment de l’appel.
 
 ## Resolution Radar
 
@@ -83,10 +99,10 @@ Le graphe doit être acyclique ; les allocations sortantes ne dépassent pas 100
 
 ## Connecteurs publics
 
-- **Polymarket Gamma** : échantillon des 100 premiers marchés actifs, filtré par mots-clés crypto. Règles brutes seulement, sans extraction automatique certifiée ni carnet live.
+- **Polymarket Gamma** : échantillon des 100 premiers marchés actifs, filtré par mots-clés crypto. Contract Memory lit ensuite chaque ID suivi via `GET /markets/{id}`. Règles brutes seulement, sans extraction automatique certifiée ni carnet live.
 - **DeFiLlama** : 25 protocoles présents sur Ethereum, hors CEX, triés par TVL globale ; catalogue uniquement, sans inférence de dépendances à partir de la TVL.
 
-Une erreur réseau est affichée sans fallback synthétique. Lors de la création, l’accès Gamma depuis cet environnement échouait sur la vérification TLS ; la vérification du certificat est conservée. Le catalogue DeFiLlama a été vérifié en direct dans l’interface. Les contrats des connecteurs sont aussi testés avec des réponses contrôlées ; la disponibilité réelle des services reste externe.
+Une erreur réseau est affichée sans fallback synthétique. Dans cet environnement, l’accès direct à Gamma échoue car le certificat TLS présenté ne correspond pas à `gamma-api.polymarket.com` ; la vérification du certificat reste active. La démo Contract Memory est explicitement fictive. Le catalogue DeFiLlama a été vérifié en direct dans l’interface. Les contrats des connecteurs et la capture de versions sont testés avec des réponses contrôlées ; la disponibilité réelle des services reste externe.
 
 ## Vérification et évaluation
 

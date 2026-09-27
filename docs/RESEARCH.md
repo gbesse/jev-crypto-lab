@@ -8,6 +8,16 @@
 
 **H3 / Resolution Radar.** La comparaison guidée par champs normalisés et extraits vérifiables peut réduire les erreurs de lecture des clauses et rendre visibles des scénarios de divergence, sans attribuer à Jev la décision finale sur l’identité des contrats ou leur règlement.
 
+**H4 / Contract Memory.** Une archive prospective des versions de marchés, jointe aux positions déclarées, peut accélérer la détection et la revue de modifications importantes. La mesure porte sur les différences réellement observées, pas sur un historique reconstruit après coup.
+
+## Expérience Contract Memory
+
+1. Figer une liste de 25 marchés avant le début de la collecte et conserver chaque réponse horodatée avec son empreinte, sa source et les erreurs de collecte. Une panne ou un intervalle manqué crée un trou explicite.
+2. Faire annoter indépendamment chaque différence par deux lecteurs : changement substantiel, variation de présentation ou incertitude. Documenter la règle, la source et les éventuelles clarifications officielles ; conserver les désaccords.
+3. Comparer le diff exact seul, une lecture Jev atomique + diff, et une revue manuelle sans aide. Mesurer précision/rappel des changements substantiels, délai de détection depuis la première version observable, temps de revue, fausses alertes par marché-jour et abstention.
+4. Mesurer séparément l’utilité pour les positions : part des changements touchant un marché détenu, délai jusqu’à revue et décisions de normalisation prises par l’utilisateur. Le coût d’entrée affiché ne sert pas de proxy pour une perte ou un P&L.
+5. Auditer les limites de l’API Gamma : champs qui changent hors de l’instantané suivi, horodatage source, clarifications publiées ailleurs, indisponibilités et règles dont le sens change sans changement des champs suivis.
+
 ## Expérience Resolution Radar
 
 1. Constituer des paires de clauses archivées, avec textes originaux, versions, extraits par champ et revue indépendante des normalisations. Inclure changements de source, fin de fenêtre, égalité de seuil, observation terminale et clauses d’annulation.
@@ -38,6 +48,7 @@ Ne retenir l’intégration Jev que si elle améliore le compromis coût/erreur 
 ## Statut à la livraison
 
 - Moteurs déterministes, imports, export de dossiers, interface et tests : implémentés.
+- Contract Memory : capture prospective, déduplication, diff, journal de revue, positions déclarées et démo fictive implémentés ; aucune série historique réelle collectée dans cet environnement.
 - Découverte publique et adaptateur Jev : implémentés ; leur disponibilité dépend du réseau et de la clé.
 - Carnets live, normalisation assistée avec validation interactive, ingestion des positions on-chain et flux d’incidents : à construire.
 - Corpus réel annoté, évaluation Jev live, comparaisons de modèles et validation économique prospective : non réalisés.

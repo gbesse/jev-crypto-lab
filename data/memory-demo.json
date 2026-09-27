@@ -1,0 +1,27 @@
+{
+  "versions": [
+    {
+      "observedAt": "2026-09-27T08:00:00.000Z",
+      "market": {
+        "id": 900001,
+        "question": "BTC au-dessus de 120 000 USD le 31 décembre ? (fictif)",
+        "description": "YES si le cours BTC/USD de l'index Alpha dépasse 120 000 USD à 23:59 UTC le 31 décembre 2026.",
+        "resolutionSource": "Index Alpha BTC/USD",
+        "endDate": "2026-12-31T23:59:00Z",
+        "slug": "exemple-fictif-btc"
+      }
+    },
+    {
+      "observedAt": "2026-09-27T08:15:00.000Z",
+      "market": {
+        "id": 900001,
+        "question": "BTC au-dessus de 120 000 USD le 31 décembre ? (fictif)",
+        "description": "YES si le cours BTC/USD de l'index Beta dépasse 120 000 USD à 23:59 UTC le 31 décembre 2026.",
+        "resolutionSource": "Index Beta BTC/USD",
+        "endDate": "2026-12-31T23:59:00Z",
+        "slug": "exemple-fictif-btc"
+      }
+    }
+  ],
+  "positions": [{"marketId":"900001","side":"YES","quantity":100,"entryPrice":0.42}]
+}
