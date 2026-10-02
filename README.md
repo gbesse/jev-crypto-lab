@@ -32,6 +32,10 @@ Le projet est indépendant de `jev-proxy` et n’utilise aucune dépendance npm 
 5. **Sources & Jev** : consulter les catalogues publics ou soumettre des textes à Jev après configuration. Les données publiques et les jugements ne remplacent jamais silencieusement les fixtures ou les données importées.
 6. **Exporter le dossier** : chaque module télécharge ses entrées, son résultat et la provenance synthétique/importée. Les dossiers Contract Graph et Exposure Radar peuvent être réimportés ; le dossier Resolution Radar peut être rejoué par l’API. Contract Memory exporte toutes les versions et revues de l’archive locale.
 
+## Balayer les frais hors ligne
+
+`npm run demo:friction` rejoue cinq hypothèses de frais sur les deux contrats fictifs de `data/demo.json`. Le tableau montre quand le plancher net conditionnel disparaît et pourquoi le candidat est écarté. Aucun carnet réel, ordre, clé Jev ni appel réseau ; le résultat n’est pas une promesse de gain exécutable.
+
 ## Brancher Jev
 
 Copier `.env.example` vers `.env`, renseigner `TYPESAFE_API_KEY`, puis démarrer :
