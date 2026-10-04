@@ -1,6 +1,7 @@
 import {createHash,randomUUID} from 'node:crypto';
 import {mkdir,readFile,writeFile,appendFile,rename} from 'node:fs/promises';
 import {join} from 'node:path';
+import {fileURLToPath} from 'node:url';
 import {assert} from './validation.js';
 
 const fields=['question','description','resolutionSource','endDate','startDate','eventStartTime','eventEndTime','outcomes','marketType','negRisk','active','closed','archived','acceptingOrders','conditionId','slug','cryptoMarketConfig'];
@@ -9,7 +10,7 @@ const stable=value=>Array.isArray(value)?value.map(stable):value&&typeof value==
 const idOf=value=>{const id=String(value);assert(/^\d{1,20}$/.test(id),'ID Gamma invalide');return id;};
 const hash=value=>createHash('sha256').update(JSON.stringify(value)).digest('hex');
 async function readJson(path,fallback){try{return JSON.parse(await readFile(path,'utf8'));}catch(e){if(e.code==='ENOENT')return fallback;throw e;}}
-async function readLines(path){try{const s=await readFile(path,'utf8');return s.trim()?s.trimEnd().split('\n').map(line=>JSON.parse(line)):[];}catch(e){if(e.code==='ENOENT')return [];throw e;}}
+async function readLines(path){try{const s=await readFile(path,'utf8');return s.trim()?s.trimEnd().split('\n').map(line=>{try{return JSON.parse(line);}catch{throw Error('Archive locale illisible : ligne JSON corrompue.');}}):[];}catch(e){if(e.code==='ENOENT')return [];throw e;}}
 async function atomicJson(path,value){const temp=`${path}.${randomUUID()}.tmp`;await writeFile(temp,JSON.stringify(value,null,2),{mode:0o600});await rename(temp,path);}
 
 export function snapshot(raw,observedAt=new Date().toISOString()){
@@ -29,12 +30,12 @@ export function positionImpact(change,positions){
   const affected=positions.filter(p=>p.marketId===change.marketId);
   return {count:affected.length,entryCostUsd:affected.reduce((sum,p)=>sum+p.quantity*p.entryPrice,0),positions:affected};
 }
-export function createMemory({directory=join(process.cwd(),'.memory'),fetcher=fetch,now=()=>new Date().toISOString()}={}){
+export function createMemory({directory=fileURLToPath(new URL('../.memory/',import.meta.url)),fetcher=fetch,now=()=>new Date().toISOString()}={}){
   const configPath=join(directory,'watchlist.json'),snapshotPath=join(directory,'snapshots.jsonl'),reviewPath=join(directory,'reviews.jsonl');
   let queue=Promise.resolve(),running=false,lastRun=null,lastError=null;
   const serialize=fn=>{const run=queue.then(fn);queue=run.catch(()=>{});return run;};
   const init=async()=>{await mkdir(directory,{recursive:true,mode:0o700});return readJson(configPath,{marketIds:[],positions:[]});};
-  const getSnapshots=()=>readLines(snapshotPath);
+  const getSnapshots=async()=>{const rows=await readLines(snapshotPath);for(const row of rows){assert(row&&row.fields&&row.contentHash===hash(row.fields),'Archive locale altérée : empreinte SHA-256 invalide.');}return rows;};
   async function view(){
     const [config,snapshots,reviews]=await Promise.all([init(),getSnapshots(),readLines(reviewPath)]);
     const history=new Map(),changes=[];
@@ -44,7 +45,9 @@ export function createMemory({directory=join(process.cwd(),'.memory'),fetcher=fe
     return {marketIds:config.marketIds,positions:config.positions,latest,snapshots,changes:changes.reverse().map(c=>({...c,review:reviewed.get(c.id)||null,impact:positionImpact(c,config.positions)})),reviews,run:{running,lastRun,lastError},intervalMinutes:15,notice:'Historique observé depuis la première capture uniquement. Une différence de métadonnées ne prouve pas un changement juridique effectif des règles.'};
   }
   async function fetchMarket(id){
-    const response=await fetcher(`https://gamma-api.polymarket.com/markets/${id}`,{signal:AbortSignal.timeout(12000)});
+    let response;
+    try{response=await fetcher(`https://gamma-api.polymarket.com/markets/${id}`,{signal:AbortSignal.timeout(12000)});}
+    catch(error){if(['CERT_HAS_EXPIRED','ERR_TLS_CERT_ALTNAME_INVALID','UNABLE_TO_VERIFY_LEAF_SIGNATURE'].includes(error.cause?.code))throw Error('Gamma inaccessible : certificat TLS invalide pour cette connexion.');throw error;}
     assert(response.ok,`Gamma ${id} : HTTP ${response.status}`);
     const raw=await response.json();assert(idOf(raw.id)===id,'ID Gamma inattendu');return snapshot(raw,now());
   }

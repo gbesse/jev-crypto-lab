@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {mkdtemp,readFile,rm} from 'node:fs/promises';
+import {mkdtemp,readFile,writeFile,rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {once} from 'node:events';
@@ -40,6 +40,11 @@ test('capture prospective, déduplication, position et revue survivent au redém
   await assert.rejects(()=>restarted.setPosition({marketId:'42',side:'YES',quantity:100,entryPrice:2}),/Prix invalide/);
   await assert.rejects(()=>restarted.review({changeId:change.id,verdict:'confirmed',note:'court'}),/Note de revue/);
   state=await restarted.remove('42');assert.equal(state.marketIds.length,0);assert.equal(state.snapshots.length,2);
+  const archive=join(directory,'snapshots.jsonl');
+  const rows=(await readFile(archive,'utf8')).trim().split('\n').map(JSON.parse);
+  rows[0].fields.description='tampered';
+  await writeFile(archive,rows.map(x=>JSON.stringify(x)).join('\n')+'\n');
+  await assert.rejects(()=>restarted.view(),/empreinte SHA-256 invalide/);
 });
 
 test('échec de Gamma et ID incohérent ne créent pas de faux instantané',async t=>{
@@ -47,6 +52,8 @@ test('échec de Gamma et ID incohérent ne créent pas de faux instantané',asyn
   const store=createMemory({directory,fetcher:async()=>({ok:true,json:async()=>raw('x',{id:43})})});
   await assert.rejects(()=>store.add('42'),/ID Gamma inattendu/);
   assert.equal((await store.view()).snapshots.length,0);
+  const tls=createMemory({directory,fetcher:async()=>{const e=new Error('fetch failed');e.cause={code:'CERT_HAS_EXPIRED'};throw e;}});
+  await assert.rejects(()=>tls.add('42'),/certificat TLS invalide/);
 });
 
 test('API locale expose le journal et ne transmet à Jev que les deux versions du changement',async t=>{
