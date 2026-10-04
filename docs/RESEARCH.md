@@ -10,6 +10,15 @@
 
 **H4 / Contract Memory.** Une archive prospective des versions de marchés, jointe aux positions déclarées, peut accélérer la détection et la revue de modifications importantes. La mesure porte sur les différences réellement observées, pas sur un historique reconstruit après coup.
 
+**H5 / Resolution CI.** Un contrôle avant publication qui exige des extraits de règles et des cas limites attendus peut détecter des contradictions matérielles et réduire le temps de revue. La réussite dépend d’une évaluation en aveugle sur des projets réels et d’un gain observé par les équipes qui publient les marchés ; une démonstration fictive ne constitue pas cette preuve.
+
+## Expérience Resolution CI
+
+1. Obtenir, avec autorisation, des projets de règles de contrats à seuil et les versions approuvées par leurs auteurs. Geler la version initiale, les cas limites et les heures de disponibilité des sources avant de connaître le résultat final.
+2. Faire annoter indépendamment les défauts matériels par deux spécialistes : ambiguïtés de source, heure limite, seuil inclusif/exclusif, corrections et source indisponible. Conserver les désaccords et les cas hors du périmètre du moteur.
+3. Comparer la revue habituelle, le contrôle déterministe seul et le contrôle avec jugements Jev atomiques. Mesurer rappel des défauts matériels à taux de fausses alertes fixé, temps de revue, abstentions, coût et stabilité après reformulation.
+4. Vérifier la valeur commerciale dans des pilotes : nombre de projets soumis, défauts effectivement corrigés avant publication et engagement payant. Écarter la piste si l’accès aux projets ou le gain opérationnel ne se matérialise pas.
+
 ## Expérience Contract Memory
 
 1. Figer une liste de 25 marchés avant le début de la collecte et conserver chaque réponse horodatée avec son empreinte, sa source et les erreurs de collecte. Une panne ou un intervalle manqué crée un trou explicite.
@@ -49,7 +58,8 @@ Ne retenir l’intégration Jev que si elle améliore le compromis coût/erreur 
 
 - Moteurs déterministes, imports, export de dossiers, interface et tests : implémentés.
 - Contract Memory : capture prospective, déduplication, diff, journal de revue, positions déclarées et démo fictive implémentés ; aucune série historique réelle collectée dans cet environnement.
+- Resolution CI : contrôle des extraits et de la source déclarée, sept replays numériques, versions locales et revue humaine implémentés pour les contrats à seuil ; aucune validation sur projets réels ni collecte des publications officielles.
 - Découverte publique et adaptateur Jev : implémentés ; leur disponibilité dépend du réseau et de la clé.
 - Carnets live, normalisation assistée avec validation interactive, ingestion des positions on-chain et flux d’incidents : à construire.
-- Corpus réel annoté, évaluation Jev live, comparaisons de modèles et validation économique prospective : non réalisés.
+- Corpus réel annoté, évaluation Jev en aveugle, comparaisons de modèles et validation économique prospective : non réalisés. La lecture Jev du contrat fictif de Resolution CI a été vérifiée en direct ; cela ne mesure aucune performance.
 - Aucun ordre ni transaction financière n’est implémenté.

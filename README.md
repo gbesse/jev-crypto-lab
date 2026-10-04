@@ -1,11 +1,12 @@
 # Jev Crypto Lab
 
-Quatre prototypes de recherche en lecture seule, dans une application locale :
+Cinq prototypes de recherche sans exécution d’ordres, dans une application locale :
 
 - **Contract Graph** : vérifier des implications entre contrats binaires normalisés, puis simuler l’achat des deux jambes sur des carnets fournis.
 - **Resolution Radar** : comparer les clauses de deux contrats, rejouer une trajectoire hypothétique et calculer le paiement brut de positions saisies.
 - **Contract Memory** : conserver des versions horodatées de marchés Gamma, afficher les différences de règles et les positions actuelles à examiner, puis enregistrer une revue humaine.
 - **Exposure Radar** : retrouver les chemins entre incidents et positions, calculer une borne haute d’exposition, rejouer ce qui était connu à un instant donné.
+- **Resolution CI** : contrôler un projet de contrat à seuil, rejouer ses cas limites, conserver ses versions et enregistrer une revue humaine.
 
 Les moteurs sont fonctionnels sur des données importées. Le jeu initial est **entièrement fictif**. L’adaptateur Jev a été vérifié par une requête sur les clauses fictives de la démonstration ; il n’a pas été évalué sur un corpus réel annoté. Aucune performance de trading ou supériorité SOTA n’est revendiquée.
 
@@ -30,7 +31,8 @@ Le projet est indépendant de `jev-proxy` et n’utilise aucune dépendance npm 
 3. **Contract Memory** : cliquer sur **Voir un exemple fictif** pour inspecter un changement de source de résolution et une position fictive. Revenir au suivi local pour saisir un ID Gamma réel ; l’ajout effectue immédiatement la première capture. Les exemples fictifs ne sont jamais archivés comme données réelles.
 4. **Exposure Radar** : un portefeuille fictif de 35 000 USD a une exposition potentiellement concernée de 25 000 USD au maximum : 17 000 USD pour l’incident confirmé dans la fixture et 8 000 USD pour une allégation. Rejouer au `2026-09-21T09:00` UTC donne zéro incident actif connu ; à `10:30`, 17 000 USD.
 5. **Sources & Jev** : consulter les catalogues publics ou soumettre des textes à Jev après configuration. Les données publiques et les jugements ne remplacent jamais silencieusement les fixtures ou les données importées.
-6. **Exporter le dossier** : chaque module télécharge ses entrées, son résultat et la provenance synthétique/importée. Les dossiers Contract Graph et Exposure Radar peuvent être réimportés ; le dossier Resolution Radar peut être rejoué par l’API. Contract Memory exporte toutes les versions et revues de l’archive locale.
+6. **Resolution CI** : charger l’exemple fictif, puis **Analyser le projet**. Les sept cas incluent l’égalité au seuil, les corrections avant/après la limite et l’absence de publication. Changer `>` en `≥` sans changer le résultat attendu au seuil déclenche un blocage. **Enregistrer cette version** conserve le projet localement ; l’approbation exige une note humaine et aucun blocage.
+7. **Exporter le dossier** : chaque module télécharge ses entrées, son résultat et la provenance synthétique/importée. Les dossiers Contract Graph et Exposure Radar peuvent être réimportés ; le dossier Resolution Radar peut être rejoué par l’API. Contract Memory et Resolution CI exportent leurs versions et revues locales.
 
 ## Balayer les frais hors ligne
 
@@ -53,6 +55,18 @@ Jev propose des jugements atomiques (même événement, même source, exceptions
 Dans Resolution Radar, le bouton **Comparer avec Jev** envoie uniquement les deux textes de clauses affichés et montre ses jugements séparément. La comparaison des champs normalisés, la déclaration de revue, les issues du scénario et les paiements sont calculés localement. Une réponse Jev, même très concentrée, n’active jamais la revue humaine.
 
 Dans Contract Memory, **Demander une lecture Jev** envoie les champs de règle et de résolution des deux versions conservées. Jev classe séparément le déclencheur, la source et les exceptions. Cette lecture ne qualifie ni le marché comme « changé juridiquement », ni la position comme gagnante ou perdante ; la revue humaine reste explicite.
+
+Dans Resolution CI, la lecture facultative envoie le titre et trois courts extraits cités dans les règles, ainsi que les champs correspondants. Le reçu Jev peut être inclus dans l’export du dossier courant. Une modification du formulaire efface le résultat précédent pour éviter de l’attribuer à une nouvelle version.
+
+## Resolution CI
+
+Le module traite une famille restreinte : une valeur numérique publiée par une source primaire avant une heure limite explicite, comparée à un seuil par `>` ou `≥`. L’auteur indique si la première publication ou la dernière publication avant la limite fait foi, et si une absence de source doit rester indécidable ou produire `VOID`. Le formulaire exige des passages exacts du texte des règles pour la source, l’heure limite, le seuil, les corrections et l’indisponibilité. Il signale un extrait absent ou absent du texte, ainsi qu’un nom ou une URL de source incompatibles avec l’extrait déclaré.
+
+Le moteur rejoue sept scénarios **hypothétiques** : juste sous le seuil, au seuil, juste au-dessus, correction avant et après la limite, première publication tardive et aucune publication. L’auteur renseigne pour chaque cas l’issue attendue ; un désaccord avec la spécification bloque l’approbation. Ces tests vérifient l’implémentation de la spécification saisie, **pas** que celle-ci traduit correctement la prose du contrat. La revue humaine demeure indispensable.
+
+Les versions rédigées sont stockées dans `.ci/versions.jsonl`, les décisions dans `.ci/reviews.jsonl`, tous deux ignorés par Git. Chaque version a une empreinte SHA-256 des champs et un lien vers l’empreinte précédente ; cela détecte une modification locale non accompagnée d’un nouveau calcul, sans certifier l’auteur, la date de publication externe ni l’intégrité face à un acteur pouvant réécrire l’archive. Les versions et décisions peuvent être exportées en JSON. Aucune collecte automatique des publications de la source ni résolution officielle n’est implémentée.
+
+API locale : `GET /api/ci`, `/api/ci/demo` ; `POST /api/ci/analyze`, `/api/ci/save`, `/api/ci/review`. `POST /api/judge` accepte aussi `task: "draft"` pour les jugements sémantiques facultatifs.
 
 ## Contract Memory
 
