@@ -1,0 +1,28 @@
+{
+  "draftId": "indice-demo-2027",
+  "title": "La première publication de l’indice Démo avant fin 2027 sera-t-elle strictement supérieure à 100 ?",
+  "rulesText": "Ce marché résout YES si l’indice Démo est strictement supérieur à 100. La source primaire est l’Observatoire Démo (https://example.org/indice). Seules les publications horodatées au plus tard le 31 décembre 2027 à 23:59 UTC sont admissibles. La première publication admissible fait foi ; les corrections ultérieures sont ignorées. Si la source ne publie aucune valeur admissible, la résolution reste inconnue jusqu’à une revue humaine.",
+  "sourceName": "Observatoire Démo",
+  "sourceUrl": "https://example.org/indice",
+  "cutoffAt": "2027-12-31T23:59:00Z",
+  "threshold": 100,
+  "comparator": "gt",
+  "correctionPolicy": "first_release",
+  "unavailablePolicy": "wait",
+  "evidence": {
+    "source": "La source primaire est l’Observatoire Démo (https://example.org/indice).",
+    "cutoff": "Seules les publications horodatées au plus tard le 31 décembre 2027 à 23:59 UTC sont admissibles.",
+    "threshold": "l’indice Démo est strictement supérieur à 100",
+    "corrections": "La première publication admissible fait foi ; les corrections ultérieures sont ignorées.",
+    "unavailable": "Si la source ne publie aucune valeur admissible, la résolution reste inconnue jusqu’à une revue humaine."
+  },
+  "assertions": {
+    "below": "NO",
+    "equal": "NO",
+    "above": "YES",
+    "correction": "NO",
+    "lateCorrection": "NO",
+    "late": "UNKNOWN",
+    "unavailable": "UNKNOWN"
+  }
+}

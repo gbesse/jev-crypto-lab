@@ -1,9 +1,9 @@
 {
   "name": "jev-crypto-lab",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
-  "description": "Contract Graph, Resolution Radar, Contract Memory and Exposure Radar \u2014 evidence-first research prototypes",
+  "description": "Jev Crypto Lab: contract research, resolution checks and evidence-first prototypes",
   "engines": {
     "node": ">=22"
   },
@@ -11,7 +11,7 @@
     "start": "node src/server.js",
     "test": "node --test test/*.test.js",
     "benchmark": "node src/benchmark.js",
-    "check": "node --check src/server.js && node --check src/resolution.js && node --check src/memory.js && node --check src/jev.js && node --check public/app.js",
+    "check": "node --check src/server.js && node --check src/resolution.js && node --check src/memory.js && node --check src/contract-ci.js && node --check src/jev.js && node --check public/app.js",
     "eval": "node src/evaluate.js",
     "demo:friction": "node examples/friction-sweep.js"
   }
