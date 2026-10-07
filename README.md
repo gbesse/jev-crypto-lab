@@ -1,5 +1,15 @@
 # Jev Crypto Lab
 
+## Public Rules Lab
+
+[Would it count?](https://gbesse.github.io/jev-crypto-lab/) est la vitrine publique en anglais. Elle présente dix modèles de règles fictifs et originaux, trente scénarios hypothétiques, un calculateur de dernière date possible pour une condition continue, des cartes à partager et des reçus de règles privés dans le navigateur. Les pages statiques sont générées dans `docs/` et publiées via GitHub Pages ; elles n'utilisent ni clé TypeSafe ni API de trading.
+
+```bash
+npm run build:site      # régénère pages, sitemap et images de partage
+```
+
+Le texte collé dans **My rule receipts** reste dans `localStorage` sur le poste du visiteur. Le navigateur calcule son empreinte SHA-256, conserve les versions et permet l'export JSON. Aucune version n'est envoyée au serveur. Une empreinte détecte les différences entre captures locales ; elle ne prouve pas l'heure de publication d'une règle à sa source. Les dix pages initiales sont des exercices éditoriaux, pas des interprétations de contrats réels.
+
 Cinq prototypes de recherche sans exécution d’ordres, dans une application locale :
 
 - **Contract Graph** : vérifier des implications entre contrats binaires normalisés, puis simuler l’achat des deux jambes sur des carnets fournis.

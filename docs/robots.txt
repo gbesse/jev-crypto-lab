@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://gbesse.github.io/jev-crypto-lab/sitemap.xml

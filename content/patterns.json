@@ -1,0 +1,152 @@
+[
+  {
+    "slug": "ipo-announcement-vs-filing",
+    "category": "Business",
+    "title": "When does an IPO count?",
+    "hook": "A filing, a plan and a completed listing are different events.",
+    "headline": "Will Company A go public before Company B?",
+    "rule": "In this fictional contract, YES requires Company A's shares to begin regular trading on a public exchange before Company B's shares do, and before the stated deadline. A confidential filing, public filing or announcement of intent does not count as the first trading day.",
+    "plainRule": "Company A's first regular trading day must happen before Company B's and before the deadline.",
+    "trap": "A headline about an IPO filing can arrive months before a listing. The order of actual trading days decides this example.",
+    "scenarios": [
+      {"question": "Company A files its IPO papers first, but no shares trade yet. Is YES established?", "answer": "NO", "why": "The sample rule requires the first regular trading day, not a filing."},
+      {"question": "Company A starts regular trading before Company B and before the deadline. Does that meet YES?", "answer": "YES", "why": "All three explicit conditions in the sample rule are met."},
+      {"question": "Both companies begin trading on the same date, with no time-order rule. Can this example decide the winner?", "answer": "UNKNOWN", "why": "A tie rule would be needed to decide same-day starts."}
+    ]
+  },
+  {
+    "slug": "annual-temperature-vs-monthly-spike",
+    "category": "Climate",
+    "title": "Does one hot month count?",
+    "hook": "A monthly spike cannot satisfy an annual test.",
+    "headline": "Will global warming cross the threshold?",
+    "rule": "In this fictional contract, YES requires an annual global temperature average to exceed the specified baseline by at least 2.0°C in a calendar year before the deadline. Two independent named agencies must publish qualifying annual results.",
+    "plainRule": "A qualifying annual result and two independent agency reports are both required.",
+    "trap": "The period and number of sources matter. A monthly record or one early estimate leaves the condition unfinished.",
+    "scenarios": [
+      {"question": "One month exceeds the threshold but the annual average does not. Does it count?", "answer": "NO", "why": "The sample rule measures a full calendar year."},
+      {"question": "A qualifying annual average is published by two named agencies before the deadline. Does it meet YES?", "answer": "YES", "why": "The period, threshold, source count and deadline all match the sample rule."},
+      {"question": "One agency has reported; the second has not yet published. Is the final result known?", "answer": "UNKNOWN", "why": "The second required report may still arrive."}
+    ]
+  },
+  {
+    "slug": "which-event-happens-first",
+    "category": "Science",
+    "title": "Which milestone happens first?",
+    "hook": "A test run does not necessarily start a public service.",
+    "headline": "Will a human land on Mars before a new rail service opens?",
+    "rule": "In this fictional contract, YES requires the first confirmed human landing on Mars to occur before the first ticketed passenger service on a specified high-speed rail line, with both milestones compared in UTC. An uncrewed landing and a rail test run do not qualify.",
+    "plainRule": "Compare a human landing with the first ticketed passenger service, using their verified UTC timestamps.",
+    "trap": "Two newsworthy previews may happen before either contract milestone. Only the qualifying events enter the ordering test.",
+    "scenarios": [
+      {"question": "An uncrewed spacecraft lands on Mars first. Does it satisfy YES?", "answer": "NO", "why": "The sample rule requires a human landing."},
+      {"question": "A human lands before the first ticketed passenger trip. Does that meet YES?", "answer": "YES", "why": "The qualifying Mars milestone happened first."},
+      {"question": "A rail test run happens, but no passenger service or human Mars landing follows yet. Is the result known?", "answer": "UNKNOWN", "why": "Neither qualifying milestone has occurred."}
+    ]
+  },
+  {
+    "slug": "earlier-of-two-deadlines",
+    "category": "Time",
+    "title": "Which deadline actually applies?",
+    "hook": "“Before the earlier of” creates a moving cutoff.",
+    "headline": "Will the explorer visit Mars in their lifetime?",
+    "rule": "In this fictional contract, YES requires the named explorer to personally visit Mars before the earlier of their death or 1 January 2100, 00:00 UTC. Sending equipment, robots or representatives does not qualify.",
+    "plainRule": "The personal visit must precede both the person's death and the fixed cutoff.",
+    "trap": "A lifetime headline can hide a fixed outer deadline. The earliest applicable endpoint controls.",
+    "scenarios": [
+      {"question": "The explorer personally visits before 2100 while alive. Does that meet YES?", "answer": "YES", "why": "The personal visit is before both endpoints."},
+      {"question": "A robot named after the explorer reaches Mars. Does that count?", "answer": "NO", "why": "The sample rule requires the person to visit."},
+      {"question": "The explorer visits after the fixed 2100 cutoff while still alive. Does it meet YES?", "answer": "NO", "why": "The fixed cutoff has already passed."}
+    ]
+  },
+  {
+    "slug": "mars-colony-one-year",
+    "category": "Space",
+    "title": "When is a base a colony?",
+    "hook": "Headcount and duration are separate conditions.",
+    "headline": "Will humans colonize Mars by the deadline?",
+    "rule": "In this fictional contract, YES requires at least ten people to reside continuously in a self-sufficient settlement on Mars for one full Earth year, with that year completed before the deadline. Self-sufficiency means no essential food, air or water shipments from Earth during that year.",
+    "plainRule": "Ten residents, a full Earth year and no essential resupply must coincide before the cutoff.",
+    "trap": "A landing, short stay or regularly resupplied base is not the specified one-year colony.",
+    "scenarios": [
+      {"question": "Ten people live there for six months. Does that satisfy YES?", "answer": "NO", "why": "The continuous year has not finished."},
+      {"question": "Twelve residents complete a year without essential Earth shipments before the deadline. Does it meet YES?", "answer": "YES", "why": "The headcount, duration and supply conditions are all met."},
+      {"question": "Ten people complete a year, but shipment records are unavailable. Is YES established?", "answer": "UNKNOWN", "why": "The self-sufficiency condition cannot yet be verified."}
+    ]
+  },
+  {
+    "slug": "proof-recognition-and-retraction",
+    "category": "Science",
+    "title": "When does a proof count?",
+    "hook": "A preprint and a recognized result have different status.",
+    "headline": "Will the conjecture be solved this year?",
+    "rule": "In this fictional contract, YES requires a complete proof or counterexample to be published in a named peer-reviewed journal before the deadline and not formally retracted before resolution. A preprint or social post alone is insufficient.",
+    "plainRule": "The result needs named peer-reviewed publication before the cutoff and must survive the retraction window.",
+    "trap": "The first exciting manuscript may be followed by review, correction or withdrawal.",
+    "scenarios": [
+      {"question": "A viral preprint claims a proof. Is YES established?", "answer": "NO", "why": "The named peer-reviewed publication has not happened."},
+      {"question": "A qualifying journal publishes the proof before the deadline, and it is not retracted before resolution. Does it meet YES?", "answer": "YES", "why": "The publication and retraction conditions both hold."},
+      {"question": "A qualifying article appears, but a formal retraction review is pending. Is the final result certain?", "answer": "UNKNOWN", "why": "The retraction window has not closed."}
+    ]
+  },
+  {
+    "slug": "tie-and-fractional-payout",
+    "category": "Logic",
+    "title": "Can YES pay less than one?",
+    "hook": "A tie clause can split the payout.",
+    "headline": "Which discovery happens first?",
+    "rule": "In this fictional contract, a named discovery pays 1/N if it shares the first verified timestamp with N qualifying discoveries. It pays 1 if it is uniquely first, and 0 if another qualifying discovery is first. Verification follows the same named source for every discovery.",
+    "plainRule": "The payout can be 1, 1/N or 0 depending on verified ordering and ties.",
+    "trap": "A binary-looking headline does not guarantee a binary payout when a tie clause is present.",
+    "scenarios": [
+      {"question": "The named discovery is uniquely first. Does one unit pay 1?", "answer": "YES", "why": "The sample rule gives a full payout to the unique first discovery."},
+      {"question": "Three qualifying discoveries share the first timestamp. Does this unit pay 1?", "answer": "NO", "why": "It pays 1/3 under the explicit tie clause."},
+      {"question": "Two sources publish different timestamps and no source hierarchy is stated. Can the payout be calculated?", "answer": "UNKNOWN", "why": "A source hierarchy or verified timestamp is needed."}
+    ]
+  },
+  {
+    "slug": "bitcoin-price-source-mismatch",
+    "category": "Crypto",
+    "title": "Which Bitcoin price counts?",
+    "hook": "A dashboard tick is not always the settlement print.",
+    "headline": "Will BTC close above the target?",
+    "rule": "In this fictional contract, YES requires the BTC/USD reference rate published by Index A at 23:59 UTC on the deadline date to be strictly greater than $100,000. An exchange spot price, a chart preview and an equal reading do not qualify.",
+    "plainRule": "Use Index A's exact deadline print and a strict greater-than comparison.",
+    "trap": "Different feeds can disagree. The named settlement source and equality boundary control this example.",
+    "scenarios": [
+      {"question": "A popular exchange shows $100,200, but Index A prints $99,900 at the deadline. Does YES hold?", "answer": "NO", "why": "The sample rule names Index A as the source."},
+      {"question": "Index A prints $100,001 at the exact deadline. Does YES hold?", "answer": "YES", "why": "The named print is strictly greater than the threshold."},
+      {"question": "Index A has not published the deadline print yet. Is the outcome known?", "answer": "UNKNOWN", "why": "The required source value is missing."}
+    ]
+  },
+  {
+    "slug": "ceasefire-consecutive-days",
+    "category": "Time",
+    "title": "Can a ceasefire still finish in time?",
+    "hook": "A continuous streak has a last possible start.",
+    "headline": "Will a ceasefire last 14 days before month-end?",
+    "rule": "In this fictional contract, YES requires fourteen uninterrupted 24-hour periods without a qualifying hostile action. The full streak must end by 31 December at 23:59 UTC. Any qualifying hostile action resets the count to zero at its verified timestamp.",
+    "plainRule": "Fourteen full days must finish by the cutoff, with no qualifying reset event.",
+    "trap": "A declaration of peace cannot substitute for elapsed time. Use the deadline clock to find the latest possible start.",
+    "scenarios": [
+      {"question": "A ceasefire is announced five days before the cutoff. Can a new 14-day streak finish in time?", "answer": "NO", "why": "Only five days remain; the required 14-day duration cannot fit."},
+      {"question": "A streak starts at least 14 days before the cutoff and no qualifying action occurs. Does it meet YES?", "answer": "YES", "why": "The full continuous period fits inside the window."},
+      {"question": "A disputed incident occurs during the streak. Can the page decide whether it resets the clock?", "answer": "UNKNOWN", "why": "The incident must be checked against the contract's qualifying-action definition and source."}
+    ]
+  },
+  {
+    "slug": "ambiguous-breakthrough",
+    "category": "Science",
+    "title": "What counts as a breakthrough?",
+    "hook": "Undefined milestone words need a decision rule.",
+    "headline": "Will fusion be achieved before the deadline?",
+    "rule": "This fictional draft says only: ‘YES if practical nuclear fusion is achieved before 1 January 2030.’ It does not define practical, name a measurement, or identify an authoritative source. The examples below show why this draft is not ready to resolve reliably.",
+    "plainRule": "The draft lacks an operational definition of practical fusion and a deciding source.",
+    "trap": "A precise date cannot rescue an undefined event. This is a drafting problem to fix before anyone relies on the contract.",
+    "scenarios": [
+      {"question": "A lab announces a record fusion experiment. Is YES established by this draft?", "answer": "UNKNOWN", "why": "The draft never defines ‘practical’ or a qualifying measurement."},
+      {"question": "A commercial reactor is announced but not operating. Is YES established?", "answer": "UNKNOWN", "why": "The draft does not say whether an announcement, demonstration or operation qualifies."},
+      {"question": "The event happens after the fixed deadline. Can it satisfy YES?", "answer": "NO", "why": "The only unambiguous condition in the draft is the deadline."}
+    ]
+  }
+]
