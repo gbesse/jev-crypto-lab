@@ -10,6 +10,7 @@
   "scripts": {
     "start": "node src/server.js",
     "test": "node --test test/*.test.js",
+    "build:site": "node scripts/build-public-site.mjs",
     "benchmark": "node src/benchmark.js",
     "check": "node --check src/server.js && node --check src/resolution.js && node --check src/memory.js && node --check src/contract-ci.js && node --check src/jev.js && node --check public/app.js",
     "eval": "node src/evaluate.js",
