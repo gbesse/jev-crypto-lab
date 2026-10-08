@@ -151,3 +151,11 @@ L’évaluation live réalise **au plus une requête par cas**, plafonnée par `
 Le [protocole de recherche](docs/RESEARCH.md) définit les jeux de données, comparateurs et critères à mesurer avant toute revendication de supériorité.
 
 Références : [API TypeSafe](https://docs.typesafe.ai/api), [limites Jev](https://docs.typesafe.ai/model-jaggedness/jev-1.13), [Gamma](https://docs.polymarket.com/market-data/discover-markets), [DeFiLlama](https://api-docs.defillama.com/), [arbitrage combinatoire](https://arxiv.org/abs/2508.03474), [alignement sémantique](https://arxiv.org/abs/2601.01706).
+
+## October 2026 improvement · Amélioration d’octobre 2026 · Mejora de octubre de 2026
+
+Run `npm run demo:void` to see why a synthetic refund clause blocks a binary payoff proof. This is research on fictional contracts, not trading advice.
+
+Exécutez `npm run demo:void` pour voir pourquoi une clause de remboursement fictive bloque une preuve de paiement binaire. Il s’agit d’une recherche sur des contrats fictifs.
+
+Ejecute `npm run demo:void` para ver por qué una cláusula ficticia de reembolso bloque una prueba de pago binario. Es investigación con contratos ficticios.
