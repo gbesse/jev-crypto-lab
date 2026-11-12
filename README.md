@@ -159,3 +159,12 @@ Run `npm run demo:void` to see why a synthetic refund clause blocks a binary pay
 Exécutez `npm run demo:void` pour voir pourquoi une clause de remboursement fictive bloque une preuve de paiement binaire. Il s’agit d’une recherche sur des contrats fictifs.
 
 Ejecute `npm run demo:void` para ver por qué una cláusula ficticia de reembolso bloque una prueba de pago binario. Es investigación con contratos ficticios.
+
+
+## 2026-11-12 — FR / EN / ES
+
+FR : Valider masse de probabilité confiance et seuil avant de calculer les scores du banc crypto fictif.
+
+EN: Validate probability mass confidence and threshold before scoring synthetic crypto benchmarks.
+
+ES: Validar masa de probabilidad confianza y umbral antes de puntuar bancos cripto ficticios.
