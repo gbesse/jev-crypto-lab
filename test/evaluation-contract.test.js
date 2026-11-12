@@ -1,0 +1,4 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {scorePredictions}from '../src/evaluate.js';const valid={expected:'yes',choice:'yes',confidence:.9,probabilities:{yes:.9,no:.1}};
+test('nonfinite probability cannot produce an apparently scored benchmark',()=>assert.throws(()=>scorePredictions([{...valid,probabilities:{yes:NaN,no:.1}}])));
+test('mass and confidence contract checked',()=>{assert.throws(()=>scorePredictions([{...valid,probabilities:{yes:.9,no:.9}}]));assert.throws(()=>scorePredictions([{...valid,confidence:NaN}]));assert.throws(()=>scorePredictions([valid],1.1));});
+test('valid fixture retains observed metrics',()=>{const x=scorePredictions([valid]);assert.equal(x.accuracy,1);assert.equal(x.coverage,1);assert.ok(Math.abs(x.multiclassBrier-.02)<1e-12);});

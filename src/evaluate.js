@@ -4,9 +4,18 @@ import {judge,buildQuestions} from './jev.js';
 import {assert,list} from './validation.js';
 
 export function scorePredictions(rows,threshold=.8){
-  assert(rows.length>0,'Aucun jugement à évaluer');
+
+  const invalid='Évaluation invalide / Invalid evaluation / Evaluación inválida';
+  assert(Array.isArray(rows)&&rows.length>0&&rows.length<=10000,invalid);
+  assert(Number.isFinite(threshold)&&threshold>=0&&threshold<=1,invalid);
+
   let correct=0,brier=0,selected=0,selectedCorrect=0;
   for(const r of rows){
+    assert(r&&r.probabilities&&typeof r.probabilities==='object'&&!Array.isArray(r.probabilities),invalid);
+    const entries=Object.entries(r.probabilities);
+    assert(entries.length>0&&entries.every(([k,v])=>k&&Number.isFinite(v)&&v>=0&&v<=1)&&Math.abs(entries.reduce((sum,[,v])=>sum+v,0)-1)<=.001,invalid);
+    assert(typeof r.choice==='string'&&Object.hasOwn(r.probabilities,r.choice)&&Number.isFinite(r.confidence)&&r.confidence>=0&&r.confidence<=1,invalid);
+
     assert(Object.hasOwn(r.probabilities,r.expected),'Vérité terrain hors des options');
     const ok=r.choice===r.expected;correct+=Number(ok);
     brier+=Object.entries(r.probabilities).reduce((s,[k,p])=>s+(p-Number(k===r.expected))**2,0);
